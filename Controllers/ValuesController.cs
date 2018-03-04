@@ -2,18 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class ValuesController : Controller
     {
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public CoreObject SearchCoreObject()
         {
-            return new string[] { "value1", "value2" };
+            return new CoreObject
+            {
+                UniqueId = "Core",
+                DisplayName = "Object",
+            };
         }
 
         // GET api/values/5
