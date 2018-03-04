@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using Core.Conventions;
+using Core.Filters;
 
 namespace Core
 {
@@ -28,7 +29,12 @@ namespace Core
         {
             services.AddCors();
 
-            services.AddMvc(mvc => mvc.Conventions.Add(new RoutingConvention()));
+            services.AddMvc(options =>
+            {
+                options.Conventions.Add(new RoutingConvention());
+                options.Filters.Add(typeof(MonitorFilterAttribute));
+                options.Filters.Add(typeof(ErrorFilterAttribute));
+            });
 
             // Register the Swagger generator, defining one or more Swagger documents
             services.AddSwaggerGen(c =>

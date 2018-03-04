@@ -21,6 +21,12 @@ namespace Core.Controllers
             };
         }
 
+        [HttpPost]
+        public dynamic ErrorData([FromBody]string[] values)
+        {
+            throw new NotImplementedException();
+        }
+
         // GET api/values/5
         [HttpGet("{id}")]
         public string Get(int id)
@@ -30,8 +36,9 @@ namespace Core.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public int Post([FromBody]string value)
         {
+            return 0;
         }
 
         // PUT api/values/5
