@@ -11,6 +11,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Core
 {
@@ -62,15 +63,24 @@ namespace Core
 
             app.UseStaticFiles();
 
+            app.UseCors(cors => cors.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+
+            app.UseMvc();
+
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v2/swagger.json", "Core API V2"));
 
-            app.UseCors(cors => cors.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
-
-            app.UseMvc();
+            app.Run(ctx =>
+            {
+                if (ctx.Request.Path == "/")
+                {
+                    ctx.Response.Redirect("/swagger");
+                }
+                return Task.FromResult(0);
+            });
         }
     }
 }
