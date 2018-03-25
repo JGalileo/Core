@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
 
@@ -11,17 +12,19 @@ namespace Core.Filters
     {
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly IModelMetadataProvider _modelMetadataProvider;
+        private readonly ILogger<ErrorFilterAttribute> _logger;
 
-        public ErrorFilterAttribute(IHostingEnvironment hostingEnvironment, IModelMetadataProvider modelMetadataProvider)
+        public ErrorFilterAttribute(IHostingEnvironment hostingEnvironment, IModelMetadataProvider modelMetadataProvider, ILogger<ErrorFilterAttribute> logger)
         {
             _hostingEnvironment = hostingEnvironment;
             _modelMetadataProvider = modelMetadataProvider;
+            _logger = logger;
         }
 
         public override void OnException(ExceptionContext context)
         {
             var body = BodyString(context.HttpContext.Request.Body);
-            // TODO log
+            _logger.LogError(default(EventId), context.Exception, body);
 
             context.Result = new ObjectResult(new
             {
