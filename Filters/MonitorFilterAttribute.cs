@@ -1,11 +1,8 @@
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
+using Core.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.Linq;
 using System;
-using Core.Helpers;
+using System.Threading.Tasks;
 
 namespace Core.Filters
 {

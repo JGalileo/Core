@@ -1,6 +1,5 @@
-using System;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using System.Linq;
 
 namespace Core.Conventions
 {
